@@ -19,8 +19,8 @@ export RAW_CONFIG=${RAW_CONFIG:-""}
 echo $RELAY_HOST_NAME > /etc/mailname
 
 # Templates
-j2 /root/conf/postfix-main.cf > /etc/postfix/main.cf
-j2 /root/conf/sasl_passwd > /etc/postfix/sasl_passwd
+env | awk -F= '{printf("%s: \"%s\"\n", $1, $2)}' | jinja2 /root/conf/postfix-main.cf - --format=yaml > /etc/postfix/main.cf
+env | awk -F= '{printf("%s: \"%s\"\n", $1, $2)}' | jinja2 /root/conf/sasl_passwd - --format=yaml > /etc/postfix/sasl_passwd
 postmap /etc/postfix/sasl_passwd
 
 # Custom aliases
