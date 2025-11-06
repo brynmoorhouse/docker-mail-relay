@@ -1,9 +1,8 @@
-FROM alpine:3.12
+FROM alpine:3.22.2
 MAINTAINER Uri Savelchev <alterrebe@gmail.com>
 
 # Packages: update
-RUN apk -U add postfix ca-certificates libsasl cyrus-sasl-plain cyrus-sasl-login py-pip supervisor rsyslog
-RUN pip install j2cli
+RUN apk -U add postfix ca-certificates libsasl cyrus-sasl-login py-pip supervisor rsyslog jinja2-cli
 
 # Add files
 ADD conf /root/conf
